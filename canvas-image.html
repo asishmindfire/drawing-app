@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas Image</title>
+    <style>
+      img {
+        max-width: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+    <img src="./juliane.jpg" alt="Test Image" />
+    <script>
+      const canvas = document.getElementById("myCanvas");
+      canvas.width = 600;
+      canvas.height = 400;
+
+      const ctx = canvas.getContext("2d");
+
+      let imgObj = new Image();
+      imgObj.onload = () => {
+        // To load the image in the canvas
+        let w = canvas.width;
+        let nw = imgObj.naturalWidth;
+        let nh = imgObj.naturalHeight;
+        let aspect = nw / nh;
+        let h = w / aspect;
+        console.log(h);
+        canvas.height = h;
+        // ctx.drawImage(imgObj, 0, 350, 200, (200/aspect), 0, 0, w, h); // We can use this for cropping the image
+        ctx.drawImage(imgObj, 0, 0, w, h); // To resize the image in the canvas
+      };
+      imgObj.src = "./juliane.jpg";
+
+      const greyscale = function (ev) {
+        image = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        let arr = image.data;
+        for (let i = 0; i < arr.length; i = i + 4) {
+          let ttl = arr[i] + arr[i + 1] + arr[i + 2];
+          let avg = parseInt(ttl / 3);
+          arr[i] = avg;
+          arr[i + 1] = avg;
+          arr[i + 2] = avg;
+        }
+        image.data = arr;
+        ctx.putImageData(image, 0, 0);
+      };
+
+      const colorChannel = () => {
+        imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        let arr = imageData.data;
+        for (let i = 0; i < arr.length; i = i + 4) {
+          arr[i] = 0; // Red
+          // arr[i + 1] = 0; // Green
+          // arr[i + 2] = 0; // Blue
+        }
+        imageData.data = arr;
+        ctx.putImageData(imageData, 0, 0);
+
+        let img = canvas.toDataURL("image/jpeg", 1.0);
+        document.querySelector("img").src = img;
+      };
+
+      //   canvas.addEventListener("click", greyscale);
+      canvas.addEventListener("click", colorChannel);
+    </script>
+  </body>
+</html>

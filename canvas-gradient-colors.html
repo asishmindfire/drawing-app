@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gradient Colors</title>
+    <style>
+      #myCanvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+
+    <script>
+      const colorRed = "rgba(255, 0, 0, 1)";
+      const colorGreen = "rgba(0, 255, 0, 1)";
+      const colorBlue = "rgba(0, 0, 255, 1)";
+      const colorYellow = "rgba(255, 255, 0, 1)";
+      const colorPurple = "rgba(128, 0, 128, 1)";
+
+      const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = 600;
+      canvas.height = 500;
+
+      const gradient = ctx.createLinearGradient(0, 50, 0, 300); // The co-ordinate takes the main canvas co-ordinates
+      gradient.addColorStop(0.25, colorRed);
+      //   gradient.addColorStop(0.25, colorRed);
+      gradient.addColorStop(1, colorGreen);
+      //   gradient.addColorStop(0.5, colorBlue);
+      //   gradient.addColorStop(0.75, colorYellow);
+      //   gradient.addColorStop(1, colorPurple);
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(50, 50, 250, 250);
+    </script>
+  </body>
+</html>

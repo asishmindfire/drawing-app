@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas Drawing App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="canvas-container">
+      <canvas id="myCanvas"> </canvas>
+    </div>
+
+    <script>
+      const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+
+      //   To draw a line
+      //   ctx.moveTo(0, 0);
+      //   ctx.lineTo(200, 200);
+      //   ctx.stroke();
+
+      //   To draw a cicle
+      //   ctx.fillRect(40, 40, 150, 75);
+
+      // Creating Ping-Pong game
+      const width = 400;
+      const height = 600;
+
+      canvas.width = width;
+      canvas.height = height;
+
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, width, height);
+
+      let paddleWidth = 50;
+      let paddleHeight = 10;
+      // paddle top
+      ctx.fillStyle = "white";
+      ctx.fillRect(175, 10, paddleWidth, paddleHeight);
+      // paddle bottom
+      ctx.fillStyle = "white";
+      ctx.fillRect(175, 580, paddleWidth, paddleHeight);
+      // dotted line in center
+      ctx.beginPath();
+      ctx.setLineDash([6]);
+      ctx.moveTo(0, 300);
+      ctx.lineTo(400, 300);
+      ctx.strokeStyle = "grey";
+      ctx.stroke();
+
+      // Circle
+      ctx.beginPath();
+      ctx.arc(width / 2, height / 2, 10, 0, 2 * Math.PI);
+      ctx.fillStyle = "white";
+      ctx.fill();
+
+      // players score
+      ctx.font = "32px Josefin Sans";
+      ctx.fillText(10, 20, height / 2 - 30);
+      ctx.fillText(15, 20, height / 2 + 50);
+    </script>
+  </body>
+</html>
